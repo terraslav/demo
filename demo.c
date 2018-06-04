@@ -8,7 +8,7 @@ typedef struct item_tag {
 	void *data;
 } item;
 
-item *begin, *top;	// указатели на основание и вершину списка
+item *begin, *top;							// указатели на основание и вершину списка
 
 void init_list(){
 	begin = top = NULL;
@@ -16,7 +16,7 @@ void init_list(){
 
 void clear_list(){
 	item *ptr = begin, *save;
-	while(prt && ptr->next){
+	while(prt){
 		if(ptr->name) free (ptr->name);
 		if(ptr->data) free (ptr->data);
 		save = ptr;
@@ -29,7 +29,7 @@ void clear_list(){
 void add_item(char *name, void *data, uint len){
 	if(!begin){
 		begin = top = malloc(sizeof item);	// выделяю память под элемент списка
-		memset(begin, 1, sizeof(item);
+		memset(begin, 0, sizeof(item);
 	}
 	else {
 		top->next = malloc(sizeof item);
@@ -49,16 +49,16 @@ void add_item(char *name, void *data, uint len){
 }
 
 bool compare_str(char *a, char *b){
-	if(!a || !b) return false;					// выход если один из указателей нулевой
+	if(!a || !b) return false;				// выход если один из указателей нулевой
 	uint l1 = strlen(a), l2 = strlen(b);
-	if(a != b) return false;					// выход если неравна длина стрингов
+	if(a != b) return false;				// выход если неравна длина стрингов
 	uint len = a > b ? a : b;
 	for(uint i=0; i<len; i++)
-		if(a[i] != b[i]) return false;			// несовпадение
+		if(a[i] != b[i]) return false;		// несовпадение
 	return true;
 }
 
-bool rm_item(char *name){						// удаляю элеменет из списка по имени
+bool rm_item(char *name){					// удаляю элеменет из списка по имени
 	item ptr = begin;
 	if(!ptr) return false;
 	bool res = false;
@@ -76,7 +76,7 @@ bool rm_item(char *name){						// удаляю элеменет из списк�
 	return res;
 }
 
-bool rm_item_numb(uint numb){					// удаление но номеру
+bool rm_item_numb(uint numb){				// удаление но номеру
 	item *ptr = begin;
 	uint i;
 	for(i=0; i!=numb; i++){
@@ -92,7 +92,7 @@ bool rm_item_numb(uint numb){					// удаление но номеру
 	return true
 }
 
-item *get_item(char *name){						// поиск с начала списка
+item *get_item(char *name){					// поиск с начала списка
 	item *ptr = begin;
 	while(ptr)
 		if(compare_str(name, ptr->name)) return ptr;
@@ -100,7 +100,7 @@ item *get_item(char *name){						// поиск с начала списка
 	return NULL;
 }
 
-item *get_item_rev(char *name){					// поиск с конца списка
+item *get_item_rev(char *name){				// поиск с конца списка
 	item *ptr = top;
 	while(ptr)
 		if(compare_str(name, ptr->name)) return ptr;
@@ -108,7 +108,7 @@ item *get_item_rev(char *name){					// поиск с конца списка
 	return NULL;
 }
 
-item *get_item_indx(uint indx){					// поиск по номеру
+item *get_item_indx(uint indx){				// поиск по номеру
 	item *ptr = begin;
 	for(int i=0; i!=indx; i++)
 		if(ptr) ptr=ptr->next;
